@@ -3,9 +3,9 @@
 function car(brand, model, year){
     this.brand = brand,
     this.model = model,
-    this.year = year,
-    getModel: function () { return this.brand + "Model: " + this.model;};
-}
+    this.year = year
+    //getModel: function () { return this.brand + "Model: " + this.model;};
+};
 var miCar = {
     brand: "Toyota",
     model: "Croll",
