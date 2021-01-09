@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/sebastiantuyu/javascript/issues"
   },
-  "homepage": "https://github.com/sebastiantuyu/javascript#readme"
+  "homepage": "https://github.com/sebastiantuyu/javascript#readme",
+  "devDependencies": {
+    "live-server": "^1.2.1"
+  }
 }
