@@ -83,7 +83,8 @@
         display: none;
       }
     </style>
-  <script data-dapp-detection="">!function(){let e=!1;function n(){if(!e){const n=document.createElement("meta");n.name="dapp-detected",document.head.appendChild(n),e=!0}}if(window.hasOwnProperty("ethereum")){if(window.__disableDappDetectionInsertion=!0,void 0===window.ethereum)return;n()}else{var t=window.ethereum;Object.defineProperty(window,"ethereum",{configurable:!0,enumerable:!1,set:function(e){window.__disableDappDetectionInsertion||n(),t=e},get:function(){if(!window.__disableDappDetectionInsertion){const e=arguments.callee;e&&e.caller&&e.caller.toString&&-1!==e.caller.toString().indexOf("getOwnPropertyNames")||n()}return t}})}}();</script></head>
+  <!-- <script data-dapp-detection="">!function(){let e=!1;function n(){if(!e){const n=document.createElement("meta");n.name="dapp-detected",document.head.appendChild(n),e=!0}}if(window.hasOwnProperty("ethereum")){if(window.__disableDappDetectionInsertion=!0,void 0===window.ethereum)return;n()}else{var t=window.ethereum;Object.defineProperty(window,"ethereum",{configurable:!0,enumerable:!1,set:function(e){window.__disableDappDetectionInsertion||n(),t=e},get:function(){if(!window.__disableDappDetectionInsertion){const e=arguments.callee;e&&e.caller&&e.caller.toString&&-1!==e.caller.toString().indexOf("getOwnPropertyNames")||n()}return t}})}}();</script> -->
+</head>
   <body>
     <div class="gameboard">
       <div id="celeste" class="color celeste left" data-color="celeste"></div>
@@ -106,16 +107,64 @@
           class Juego{
               constructor(){
                 this.inicializar()
+                this.generarSecuencia()
+                this.siguienteNivel()
               }
 
               inicializar(){
                 btnEmpezar.classList.add('hide')
+                this.nivel = 7
+                this.colores ={
+                  // SI CREAMOS UN OBJETO CON EL ATRIBUTO QUE TIENE EL MISMO NOMBRE
+                  // DE UN OBJETO QUE YA EXISTE, ENTONCES PODEMOS NO USAR LOS ":"
+                  celeste,
+                  violeta,
+                  naranja,
+                  verde
+                }
+              }
+
+              generarSecuencia(){
+                this.secuencia = new Array(10).fill(0).map(n => Math.floor(Math.random()*4))
+              }
+
+
+              siguienteNivel(){
+                this.iluminarSecuencia()
+              }
+              
+              numToCol(num){
+                  switch (num){
+                    case 0:
+                      return 'celeste'
+                    case 1:
+                      return 'violeta'
+                    case 2:
+                      return 'naranja'
+                    case 3:
+                      return 'verde'
+                  }
+              }
+              
+              ilumnarColor(color){
+                this.colores[color].classList.add('light')
+                setTimeout(() => this.colores[color].classList.remove('light'),300)
+              }
+
+              iluminarSecuencia(){
+                for(let i=0;i<this.nivel;i++){
+                  let color = this.numToCol(this.secuencia[i])
+                  setTimeout(() =>{
+                    console.log(color)
+                    this.ilumnarColor(color)
+                  }, 1000 * i)
+                }
               }
           }
 
 
           function empezarJuego(){
-            var game = new Juego()
+            window.game = new Juego()
           }
         </script>
 </body>
