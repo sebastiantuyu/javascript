@@ -33,13 +33,23 @@ function onError(id){
 }
 
 
-var ids = [1,2,3,4,5,6,7]
 
-var promesas = ids.map(id => getPersona(id))
-Promise
-        .all(promesas)
-        .then(people => console.log(people))
-        .catch(onError)
+async function allPersonas(){
+    var ids = [1,2,3,4,5,6,7]
+    // CREAMOS EL ARRAY CON TODAS LAS PROMESAS
+    var promesas = ids.map( id => getPersona(id))
+    try{
+
+        // PASAMOS LAS PROMESAS EN UN ARRAY, PERO SOLO SE EJECUTA HASTA 
+        // QUE SE CUMPLAN TODAS LAS PROMESAS
+        
+        var personajes = await Promise.all(promesas)
+        console.table(personajes)
+    }catch (id){
+        onError(id)
+    }
+}
+
 
 /***************************** 
 
