@@ -15,40 +15,45 @@
 *       HERENCIA PROTOTIPAL       *
 *        (MODELO ANTIGUO)         *
 *                                 *              
-***********************************/       
-function hereda(pHijo,pPadre){
-    var fn = function(){}
-    fn.prototype = pPadre.prototype
-    pHijo.prototype = new fn
-    pHijo.prototype.constructor = pHijo
-}
+*           ES5 (2015)
+*
+*    function hereda(pHijo,pPadre){
+*    var fn = function(){}
+*    fn.prototype = pPadre.prototype
+*    pHijo.prototype = new fn
+*    pHijo.prototype.constructor = pHijo
+} ********************************* */
 
-function Persona(nombre, apellido, altura){
-    this.nombre = nombre,
-    this.apellido = apellido
-    this.altura = altura
-}
+class Persona {
+    constructor (nombre, apellido, altura){
+        this.nombre = nombre,
+        this.apellido = apellido
+        this.altura = altura
+    }
 
-Persona.prototype.saludar = function() {
-    console.log(`Hola, me llamo ${this.nombre}`)  
-} 
-
-Persona.prototype.soyAlto = function() {
-    return this.altura>1.8
-}
-
-
-function Desarrolador(nombre,apellido){
-    this.nombre=nombre,
-    this.apellido=apellido
-}
-
-Desarrolador.prototype.saludame = function(){
-    console.log(` Hola me llamo ${this.nombre}, y soy desarollador`)
+    saludar(){
+        console.log(`Hola, me llamo ${this.nombre}`)  
+    }
+    
+    soyAlto(){
+        return this.altura>1.8
+    }
 }
 
 
-hereda(Desarrolador,Persona)
+class Desarollador extends Persona {
+    constructor (nombre,apellido,altura){
+        super(nombre,apellido,altura)
+    }
+
+    saludame(){
+        console.log(` Hola me llamo ${this.nombre}, y soy desarollador`)
+    }
+}
+
+
+
+/* hereda(Desarrolador,Persona) */
 /* var Paula = new Persona('Paula','Gomez',1.81)
 var Diego = new Persona('Diego','Vela',1.45)
 var Juan = new Persona('John','Kirchoff',1.65) */
