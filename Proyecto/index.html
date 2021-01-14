@@ -94,26 +94,29 @@
       <button id="btnEmpezar" class="btn-start" onclick="empezarJuego()">Empezar a jugar!</button>
     </div>
  
-  
-        <script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" integrity="sha512-AA1Bzp5Q0K1KanKKmvN/4d3IRKVlv9PYgwFPvm32nPO6QS8yH1HO7LbgB1pgiOxPtfeg5zEn2ba64MUcqJx6CA==" crossorigin="anonymous"></script>        <script>
           const celeste = document.getElementById('celeste')
           const violeta = document.getElementById('violeta')
           const naranja = document.getElementById('naranja')
           const verde = document.getElementById('verde')
 
           const btnEmpezar = document.getElementById('btnEmpezar')
+          const ULTIMO_NIVEL = 3;
+          const VELOCIDAD_ILUMINADO = 200;
 
-
+          
           class Juego{
               constructor(){
+                this.inicializar = this.inicializar.bind(this)
                 this.inicializar()
                 this.generarSecuencia()
                 this.siguienteNivel()
               }
 
               inicializar(){
-                btnEmpezar.classList.add('hide')
-                this.nivel = 7
+                this.siguienteNivel = this.siguienteNivel.bind(this)
+                this.toggleEventoEmpezar()
+                this.nivel = 1
                 this.colores ={
                   // SI CREAMOS UN OBJETO CON EL ATRIBUTO QUE TIENE EL MISMO NOMBRE
                   // DE UN OBJETO QUE YA EXISTE, ENTONCES PODEMOS NO USAR LOS ":"
@@ -124,13 +127,33 @@
                 }
               }
 
-              generarSecuencia(){
-                this.secuencia = new Array(10).fill(0).map(n => Math.floor(Math.random()*4))
+              toggleEventoEmpezar(){
+                if(btnEmpezar.classList.contains('hide')){
+                btnEmpezar.classList.remove('hide')
+                }else{btnEmpezar.classList.add('hide')}
               }
 
+              generarSecuencia(){
+                this.secuencia = new Array(ULTIMO_NIVEL).fill(0).map(n => Math.floor(Math.random()*4))
+              }
+              
+              ganoJuego(){
+                swal('Simon dice','Felicitaciones ganaste el juego','success')
+                .then(this.inicializar)
+              }
+
+              perdioJuego(){
+                swal('Simon dice','Ups, perdiste el juego','error')
+                  .then(()=> {
+                    this.eliminarEventosClick()
+                    this.inicializar()
+                  })
+              }
 
               siguienteNivel(){
+                this.subnivel = 0
                 this.iluminarSecuencia()
+                this.LeerBotones()
               }
               
               numToCol(num){
@@ -145,10 +168,69 @@
                       return 'verde'
                   }
               }
+
+              ColtoNum(color){
+                  switch (color){
+                    case 'celeste':
+                      return 0
+                    case 'violeta':
+                      return 1
+                    case 'naranja':
+                      return 2
+                    case 'verde':
+                      return 3
+                  }
+              }
+
+              eliminarEventosClick(){
+                this.colores.celeste.removeEventListener('click', this.ElegirColor.bind(this))
+                this.colores.naranja.removeEventListener('click', this.ElegirColor.bind(this))
+                this.colores.violeta.removeEventListener('click', this.ElegirColor.bind(this))
+                this.colores.verde.removeEventListener('click', this.ElegirColor.bind(this))                
+              }
+
+              LeerBotones(){
+                // USAMOS BIND PARA PASAR LA REFERENCIA DE LA FUNCION A LA OTRA FUNCION
+                this.colores.celeste.addEventListener('click', this.ElegirColor.bind(this))
+                this.colores.naranja.addEventListener('click', this.ElegirColor.bind(this))
+                this.colores.violeta.addEventListener('click', this.ElegirColor.bind(this))
+                this.colores.verde.addEventListener('click', this.ElegirColor.bind(this))
+              }
+
+              ElegirColor(ev){
+                const color = ev.target.dataset.color
+                const numero = this.ColtoNum(color)
+                this.ilumnarColor(color)
+                
+                // SE COMPARA EL VALOR CLICK CON EL ARRAY DE LA SECUENCIA
+                if(numero === this.secuencia[this.subnivel]){
+                  this.subnivel++
+                  if(this.subnivel === this.nivel){
+                    this.nivel++
+                    this.EliminarEventosClick
+                    if(this.nivel === (ULTIMO_NIVEL+1)){
+                      //GANO EL JUEGO
+                      this.ganoJuego()
+                    }else{
+                      // EL NAVEGADOR SE CONVIERTE EN EL THIS AL USAR EL SETTIMEOUT
+                      // EL THIS HAY QUE PASARLO PARA NO PERDER LA REFERENCIA
+                      setTimeout(this.siguienteNivel,2000)
+                    }
+                  }
+                }else{
+                  // EL USUARIO PRESIONO EL BOTON INCORRECTO
+                  this.perdioJuego()
+                }
+
+
+              }
               
+
+
+
               ilumnarColor(color){
                 this.colores[color].classList.add('light')
-                setTimeout(() => this.colores[color].classList.remove('light'),300)
+                setTimeout(() => this.colores[color].classList.remove('light'),VELOCIDAD_ILUMINADO)
               }
 
               iluminarSecuencia(){
