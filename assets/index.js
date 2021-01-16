@@ -4,15 +4,19 @@
     import MediaPlayer from './MediaPlayer.js';
     import AutoPlay from './plugins/Autoplay.js';
 
-
+    //obtiene el elemento de video
     const video = document.querySelector('video');
 
     // Crea una nueva "Clase" y añade los plugins
     //  dentro del parentesis ...
-    const player = new MediaPlayer({ el: video, plugins: [new AutoPlay()]});
+    const player = new MediaPlayer({ el: video,
+                        plugins: [new AutoPlay()]});
 
-    const button = document.querySelector('button');
-    button.onclick = () => player.togglePlay();
+    //const button = document.querySelector('button');
+    const button_play = document.getElementById('play')
+    const button_mute = document.getElementById('mute')
+    button_play.onclick = () => player.togglePlay();
+    button_mute.onclick = () => player.mute();
 
     // Crea una funcion a forma de "Clase"
 /*     function MediaPlayer(){}

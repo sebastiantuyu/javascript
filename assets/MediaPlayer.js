@@ -3,6 +3,9 @@
 
 function MediaPlayer(config){ 
     this.media = config.el;
+
+    // configura un array de plugins o setea un array vacio 
+    // por default
     this.plugins = config.plugins || [];
 
     //Inicializar plugins
@@ -11,7 +14,9 @@ function MediaPlayer(config){
 }
 
 MediaPlayer.prototype._initPlugins = function(){
-    //this.pl
+    this.plugins.forEach( plugin => {
+            plugin.run(this)
+    })
 }
 
 MediaPlayer.prototype.play = function(){
@@ -27,6 +32,14 @@ MediaPlayer.prototype.togglePlay = function() {
         this.play();
     }else{
         this.pause();
+    }
+}
+
+MediaPlayer.prototype.mute = function(){
+    if(this.media.muted){
+        this.media.muted = false
+    }else{
+        this.media.muted = true
     }
 }
 
