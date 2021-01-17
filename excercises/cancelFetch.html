@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cancel fetch</title>
+</head>
+<body>
+    <img src="" alt="" width="800" id="huge-img">
+
+    <button id="start"> Carga peticion </button>
+    <button id="stop"> Cancela peticion </button>
+
+
+    <script>
+        const img = document.getElementById('huge-img')
+        const bStart = document.getElementById('start')
+        const bStop = document.getElementById('stop')
+        const url = 'https://images.unsplash.com/photo-1610746334198-e7525c63509c?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=934&q=80'
+        const url_2 = 'https://upload.wikimedia.org/wikipedia/commons/e/e6/Clocktower_Panorama_20080622_20mb.jpg'
+        let controller;
+        function startLoading(){
+            bStart.disabled = true
+            bStart.innerHTML = "Loading image ..."
+            bStop.disabled = false
+        }   
+
+        function stopLoading(){
+            bStop.disabled = true
+            bStop.innerHTML = "Canceled"
+            bStop.disabled = false
+        }
+
+        bStart.onclick = async () => {
+            startLoading()
+
+            controller = new AbortController()
+
+
+            try {
+            // Pasamos la señal
+            const response = await fetch(url_2, {signal: controller.signal })
+            // Blob es la imagen en forma binaria
+            const blob = await response.blob()
+            const imgUrl = URL.createObjectURL(blob)
+            img.src = imgUrl
+            stopLoading()                
+            } catch (error) {
+                console.log(error)    
+            }
+
+        }
+        
+        bStop.onclick = () => {
+            controller.abort()
+            stopLoading()
+
+        }
+
+    </script>
+</body>
+</html>

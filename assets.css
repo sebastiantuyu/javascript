@@ -19,3 +19,7 @@ button{
     display:flex; justify-content: center;
 /*    width: */
 }
+
+a{
+    color:white;
+}
