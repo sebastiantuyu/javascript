@@ -26,11 +26,11 @@ MediaPlayer.prototype._initPlugins = function(){
             return this.media.muted
         },
         // SETTER
-        set muted() {
-            if(!this.media.muted){
-                this.media.muted = true
+        set muted(value) {
+            if(!value){
+                value = true
             }else{
-                this.media.muted = false
+                value = false
             }
         },
     }
