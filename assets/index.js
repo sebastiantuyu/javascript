@@ -3,6 +3,7 @@
     // Script principal donde vamos a exportar todo
     import MediaPlayer from './MediaPlayer.js';
     import AutoPlay from './plugins/Autoplay.js';
+    import AutoPause from './plugins/AutoPause.js';
 
     //obtiene el elemento de video
     const video = document.querySelector('video');
@@ -10,7 +11,8 @@
     // Crea una nueva "Clase" y añade los plugins
     //  dentro del parentesis ...
     const player = new MediaPlayer({ el: video,
-                        plugins: [new AutoPlay()]});
+                        plugins: [new AutoPlay(), /* new AutoPause() */ ]
+                    });
 
     //const button = document.querySelector('button');
     const button_play = document.getElementById('play')
