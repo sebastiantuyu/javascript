@@ -12,14 +12,16 @@
     
 <h1>This: Call, apply, blind</h1>
 
-
-<button class="btn-call">Boton 1</button>
+    <button class="btn-call">Boton 1</button>
+<!-- 
 <button class="btn-call">Boton 2</button>
-<button class="btn-call">Boton 3</button>
+<button class="btn-call">Boton 3</button> -->
+
+<!-- <script src="./assets/prototype.js"></script> -->
 
 <script>
-    
-    
+
+    // Obtener botones
     const btns = document.getElementsByClassName("btn-call")
     
     //------> El this de la funcion ahora es el NODELIST
@@ -27,10 +29,41 @@
     Array.prototype.forEach.call(btns, button => {
         button.onclick = () => console.log("Nunk pares de aprender")
     })
+
+    // Promesas
+
+    R_M_URL = 'https://rickandmortyapi.com/api/character/'
+    var full = "";
+    async function getMovies(){
+        
+        // SI USAMOS EL AWAIT PARA LAS PROMESAS, PODEMOS EMPLEAR EL TRY-CATH
+
+        try {
+            const popularMovies = await getSingleMovie(3)
+        } catch (error) {
+            
+        }
+
+    }
     
+    function getSingleMovie(n){
+            f = makeArray(n)
+            
+            //const FULL_URL = R_M_URL+f.slice(0,f.length - 1)
+            const FULL_URL = 'https://www.swapi.tech/api/person/1'
+            return fetch(FULL_URL)
+                .then(response => response.json())
+                .then(data => data.results)
+    }
 
 
-    //Botons es un NODELIST
+    function makeArray(n){
+        var characters = new Array(n).fill(0)
+        characters.map((item,index) => full+=`${index+1},` )
+    
+        return full
+    }
+
 
 </script>
 </body>
