@@ -12,8 +12,48 @@
 
         function* generator() {
             console.log("GENERATOR START")
+            yield 1;
+            yield 2;
             console.log("GENERATOR END")
         }
+
+        function* idMaker(){
+            let id = 1
+            while(true){
+                yield id
+                id += 1
+            }
+
+        }
+
+        // EL GENERADOR ACEPTAR ARGUMENTOS
+        function* idMakerReset(){
+            let id = 1
+            let reset
+            while(true){
+                reset = yield id
+
+                // SI EL ARGUMENTO ES TRUTHY ENTONCES, REINICIAMOS EL CONTADOR 
+                if(reset){
+                    id = 1
+                }else{
+                    id += 1
+                }   
+            }
+        }
+
+        function* LazyFibo(){
+            let a = 1
+            let b = 1
+            while(true){
+                const next_number = a+b
+                a = b
+                b = next_number
+                yield next_number
+            }
+
+        }
+        
 
 
         const gen = generator()
