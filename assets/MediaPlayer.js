@@ -14,9 +14,29 @@ function MediaPlayer(config){
 }
 
 MediaPlayer.prototype._initPlugins = function(){
-    this.plugins.forEach( plugin => {
+    /* this.plugins.forEach( plugin => {
             plugin.run(this)
-    })
+    }) */
+    const player = {
+        play: () => this.play(),
+        pause: ()=> this.pause(),
+        media: () => this.media(),
+        // GETTER
+        get muted() {
+            return this.media.muted
+        },
+        // SETTER
+        set muted() {
+            if(!this.media.muted){
+                this.media.muted = true
+            }else{
+                this.media.muted = false
+            }
+        },
+    }
+    
+    // PASAMOS EL OBJETO PLAYER, Y ASI LIMITAMOS EL ACCESO DE LAS DEMAS FUNCIONES AL MEDIA
+    this.plugins.forEach( plugin => { plugin.run(player)})
 }
 
 MediaPlayer.prototype.play = function(){
