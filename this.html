@@ -37,23 +37,26 @@
     async function getMovies(){
         
         // SI USAMOS EL AWAIT PARA LAS PROMESAS, PODEMOS EMPLEAR EL TRY-CATH
-
+/* 
         try {
-            const popularMovies = await getSingleMovie(3)
+            const popularMovies = await getSingleMovie()
+
         } catch (error) {
             
-        }
+        } */
+
+        const popularMovies = await getSingleMovie()
+        console.log(popularMovies.properties)
 
     }
     
-    function getSingleMovie(n){
-            f = makeArray(n)
+    function getSingleMovie(){
+            //f = makeArray(n)
             
             //const FULL_URL = R_M_URL+f.slice(0,f.length - 1)
-            const FULL_URL = 'https://www.swapi.tech/api/person/1'
-            return fetch(FULL_URL)
-                .then(response => response.json())
-                .then(data => data.results)
+        const FULL_URL = 'https://www.swapi.tech/api/planets/1'
+        return fetch(FULL_URL).then(response => response.json())
+                .then(data => data.result)
     }
 
 
@@ -62,6 +65,30 @@
         characters.map((item,index) => full+=`${index+1},` )
     
         return full
+    }
+
+    async function getPlanetsSerie(){
+        const ids = await getMovies()        
+        const movies = []
+
+        for(const id of ids){
+            const movie = await getMovie(id)
+            movies.push(movie)
+        }
+    }
+
+    async function getMoviesParallel(){
+        const ids = await getMoviesIds()
+        const moviePromises = ids.map(ids => getMovies(id))
+        const movies = Promise.all(moviePromises)
+        return movies
+    }
+
+    async function getFastestMovie(){
+        const ids = await getMovies()
+        const moviePromises = ids.map(id => getMovie(id))
+        const movie = Promise.all(moviePromises)
+        return movie
     }
 
 
