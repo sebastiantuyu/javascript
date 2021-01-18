@@ -11,7 +11,7 @@
     // Crea una nueva "Clase" y añade los plugins
     //  dentro del parentesis ...
     const player = new MediaPlayer({ el: video,
-                        plugins: [new AutoPlay(), new AutoPause() ]
+                        plugins: [new AutoPlay(), new AutoPause()]
                     });
 
     //const button = document.querySelector('button');

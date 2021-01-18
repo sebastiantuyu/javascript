@@ -20,7 +20,7 @@ MediaPlayer.prototype._initPlugins = function(){
     const player = {
         play: () => this.play(),
         pause: ()=> this.pause(),
-        media: () => this.media,
+        media: this.media,
         // GETTER
         get muted() {
             return this.media.muted
@@ -52,7 +52,11 @@ MediaPlayer.prototype.togglePlay = function() {
 }
 
 MediaPlayer.prototype.mute = function(){
-    this.media.muted = true
+   if(!this.media.muted){
+        this.media.muted = true
+   }else{
+       this.media.muted = false
+   }
 }
 
 MediaPlayer.prototype.unmute = function(){
