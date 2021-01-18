@@ -19,7 +19,7 @@ Hero.prototype.saludar = function(){
     console.log(`Hola, soy ${this.name}`)
 }
 const Zelda = new Hero('Zelda')
-
+/* 
 console.log('Name', Zelda.name)
 console.log('Saludar: ',Zelda.saludar)
-console.log('toString', Zelda.toString)
+console.log('toString', Zelda.toString) */
