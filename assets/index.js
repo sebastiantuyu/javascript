@@ -20,6 +20,12 @@
     button_play.onclick = () => player.togglePlay();
     button_mute.onclick = () => player.mute();
 
+
+    if('serviceWorker' in navigator){
+        navigator.serviceWorker.register('/sw.js').catch(error => {console.log(error)})
+
+    }
+
     // Crea una funcion a forma de "Clase"
 /*     function MediaPlayer(){}
     MediaPlayer.prototype.play = function(){
