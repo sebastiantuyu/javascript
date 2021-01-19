@@ -6,13 +6,24 @@ import { config } from "process";
 class MediaPlayer { 
     media: HTMLMediaElement
     plugins: Array<any>
+    container: HTMLElement
+
     // EL VIDEO ELEMENT ES UN ELEMENTO HTMLELEMENT
     constructor(config){
         this.media = config.el
         this.plugins = config.plugins || []
+        this.initPlayer();
         this.initPlugins();
     }
 
+    initPlayer(){
+        debugger
+        this.container = document.createElement('div')
+        this.container.style.position ='relative'
+        this.media.parentNode.insertBefore(this.container, this.media)
+        debugger
+        this.container.appendChild(this.media)
+    }
 
     private initPlugins(){
         const player = {

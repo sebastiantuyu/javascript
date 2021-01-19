@@ -28,12 +28,13 @@ player: MediaPlayer
         console.log(entry.intersectionRatio)
         //entry.intersectionRatio >= 0.25   VISIBLE
         const isVisible = entry.intersectionRatio >= this.threshold
-
-        if (isVisible){
+        
+        /*
+        if (!isVisible){
            this.player.play()
         } else{
             this.player.pause()
-        }
+        }*/
 
      
     }

@@ -4,6 +4,8 @@
     import MediaPlayer from './plugins/MediaPlayer';
     import AutoPlay from './plugins/Autoplay';
     import AutoPause from './plugins/AutoPause';
+    import Ads from './plugins/ads'
+import AdsPlugin from './plugins/ads';
 
     //obtiene el elemento de video
     const video = document.querySelector('video');
@@ -11,7 +13,7 @@
     // Crea una nueva "Clase" y añade los plugins
     //  dentro del parentesis ...
     const player = new MediaPlayer({ el: video,
-                        plugins: [new AutoPlay(), new AutoPause()]
+                        plugins: [new AutoPlay(), new AutoPause(), new Ads()]
                     });
 
     //const button = document.querySelector('button');

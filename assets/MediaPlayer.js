@@ -44,7 +44,7 @@ MediaPlayer.prototype.pause = function(){
 };
 
 MediaPlayer.prototype.togglePlay = function() {
-    if(this.media.paused){
+    if(!this.media.paused){
         this.play();
     }else{
         this.pause();
