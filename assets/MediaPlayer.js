@@ -32,7 +32,7 @@ MediaPlayer.prototype._initPlugins = function(){
     }
     
     // PASAMOS EL OBJETO PLAYER, Y ASI LIMITAMOS EL ACCESO DE LAS DEMAS FUNCIONES AL MEDIA
-    this.plugins.forEach( plugin => { plugin.run(player)})
+    this.plugins.forEach( plugin => { plugin.run(this)})
 }
 
 MediaPlayer.prototype.play = function(){

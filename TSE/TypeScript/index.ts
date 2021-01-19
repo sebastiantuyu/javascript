@@ -1,48 +1,27 @@
 
-//Boolean
+    
+    // Script principal donde vamos a exportar todo
+    import MediaPlayer from './plugins/MediaPlayer';
+    import AutoPlay from './plugins/Autoplay';
+    import AutoPause from './plugins/AutoPause';
 
-let muted: boolean; 
-muted = true;
+    //obtiene el elemento de video
+    const video = document.querySelector('video');
 
+    // Crea una nueva "Clase" y añade los plugins
+    //  dentro del parentesis ...
+    const player = new MediaPlayer({ el: video,
+                        plugins: [new AutoPlay(), new AutoPause()]
+                    });
 
-// Numeros
-
-let age = 6;
-let numerador: number = 42;
-let denominador: number = age;
-let result = numerador/denominador;
-
-
-// Strings
-let nombre: string = 'Sebastian'
-let saludo: string = `Hola, soy ${nombre}`
-console.log(saludo)
-
-
-// Arreglos
-let people: string[] = [];
-people = ["Isabel","Nicole",]
-let peopleNumbers: Array< string | number > = []
-peopleNumbers.push(nombre)
-peopleNumbers.push(42)
-
-//Enum conjunto de valores
-
-enum Color{
-    Rojo = 'Rojo',
-    Verde = 'Verde',
-    Azul = 'Azul',
-}
-
-let favcol: Color = Color.Azul;
-console.log(favcol)
-
-// ANY
-
-let comodin: any = "Joker"
-comodin = { type: 'Wildcard' }
+    //const button = document.querySelector('button');
+    const button_play: HTMLElement = document.getElementById('play')
+    const button_mute: HTMLElement = document.getElementById('mute')
+    button_play.onclick = () => player.togglePlay();
+    button_mute.onclick = () => player.mute();
 
 
-// OBJECT
+    if('serviceWorker' in navigator){
+        navigator.serviceWorker.register('/sw.js').catch(error => {console.log(error)})
 
-let SomeObject: object = { type: 'Wildcard' }
+    }
